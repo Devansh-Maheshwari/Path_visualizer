@@ -35,7 +35,7 @@ function App() {
   const [isStartSelected,setIsStartSelected]=useState(false);
   const [isEndSelected,setIsEndSelected]=useState(false);
   const [algorithm,setAlgorithm]=useState("dijkstra");
-  const [speed,setSpeed]=useState(10);
+  const [delay,setDelay]=useState(10);
   const [shortestPathLength,setShortestPathLength]=useState(0);
   const[nodesVisited,setNodesVisited]=useState(0);
   
@@ -53,6 +53,24 @@ function App() {
       }))
     );
     return newGrid;
+  };
+  const handleResetGrid = () => {
+    const newGrid = createGrid(20, 50); // Create a fresh grid
+    setGrid(newGrid);
+    setIsStartSelected(false);
+    setIsEndSelected(false);
+    setShortestPathLength(0);
+    setNodesVisited(0);
+
+    const elementsVisited = document.getElementsByClassName('node-visited');
+   console.log(elementsVisited)
+    Array.from(elementsVisited).forEach(node => {
+      node.classList.remove('node-visited');
+    });
+    const elementsShortestPath = document.getElementsByClassName('node-shortest-path');
+    Array.from(elementsShortestPath).forEach(node => {
+      node.classList.remove('node-shortest-path');
+    });
   };
   const handleNodeClick=(row,col)=>{
     const newGrid=grid.slice();
@@ -123,13 +141,13 @@ function App() {
       setTimeout(()=>{
         const node=nodeInOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).classList.add('node-visited');
-      },speed*i);
+      },delay*i);
     }
     setTimeout(() => {
       const shortestPathNodes=getNodesInShortestPathOrder(endNode);
       setShortestPathLength(shortestPathNodes.length);
       animateShortestPath(shortestPathNodes);
-    }, speed*nodeInOrder.length);
+    }, delay*nodeInOrder.length);
   }
   const animateShortestPath=(nodesInShortestPathOrder)=>{
     for(let i=0;i<nodesInShortestPathOrder.length;i++){
@@ -159,9 +177,10 @@ function App() {
               <option value="dfs">DFS</option>
             </select>
             <button onClick={visualizeAlgorithm}>Visulalize {algorithm}</button>
+            <button onClick={handleResetGrid}>Reset Grid</button>
             <label>
               delay:
-              <input type="range" min="1" max="100" value={speed} onChange={(e)=>{setSpeed(Number(e.target.value))}}></input>
+              <input type="range" min="1" max="100" value={delay} onChange={(e)=>{setDelay(Number(e.target.value))}}></input>
             </label>
             <div>Nodes visited: {nodesVisited}</div>
             <div>shortest Path Length:{shortestPathLength}</div>
