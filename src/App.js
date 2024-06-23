@@ -160,7 +160,7 @@ function App() {
             </select>
             <button onClick={visualizeAlgorithm}>Visulalize {algorithm}</button>
             <label>
-              speed:
+              delay:
               <input type="range" min="1" max="100" value={speed} onChange={(e)=>{setSpeed(Number(e.target.value))}}></input>
             </label>
             <div>Nodes visited: {nodesVisited}</div>
