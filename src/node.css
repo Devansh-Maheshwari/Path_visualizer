@@ -1,36 +1,185 @@
-.grid {
+/* Resetting some basic elements for better consistency across browsers */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  .App {
+    text-align: center;
+    height:100%;
+  }
+  
+  /* Navbar styling */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #343a40;
+    color: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1%;
+  }
+  
+  .navbar h1 {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .controls {
+    display: flex;
+    align-items: center;
+    display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  }
+  
+  .controls select, 
+  .controls button, 
+  .controls input[type="range"] {
+    margin: 0 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .controls select {
+    background-color: #495057;
+    color: #fff;
+  }
+  
+  .controls button {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .controls input[type="range"] {
+    cursor: pointer;
+  }
+  
+  .controls div {
+    margin: 0 10px;
+    font-size: 14px;
+    color: #212529;
+  }
+  
+  .controls button:hover {
+    background-color: #0056b3;
+  }
+  .slider {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .delay {
+    margin-right: 5px;
+    color: #fff;
+  }
+  
+  .answer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 5px;
   }
   
-  .row {
-    display: flex;
+  .answer .child {
+    margin: 5px;
+  }
+  
+  /* Styling the grid */
+  grid {
+    height:100%;
+    width:100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 1fr);
+    justify-content: center;
+    align-items:center;
   }
   
   .node {
-    width: 25px;
-    height: 25px;
-    border: 1px solid black;
+    width: 1.5%;
+    height:1.1rem;
+    border: 1px solid #ddd;
+    display: inline-block;
   }
   
   .node-start {
-    background-color: green;
+    background-color: #28a745;
   }
   
   .node-end {
-    background-color: red;
+    background-color: #dc3545;
   }
   
   .node-wall {
-    background-color: black;
+    background-color: #343a40;
   }
+  
   .node-visited {
-    background-color: yellow;
-    transition: background-color 0.3s ease;
+    background-color: #ffc107;
+    animation: visitAnimation 0.5s ease-in-out;
   }
   
   .node-shortest-path {
-    background-color: blue;
-    transition: background-color 0.3s ease;
+    background-color: #6f42c1;
+    animation: pathAnimation 0.5s ease-in-out;
   }
+
+
+  .answer div{
+    color:#f8f9fa;
+  }
+ 
+  @keyframes visitAnimation {
+    0% {
+      background-color: #17a2b8;
+    }
+    100% {
+      background-color: #ffc107;
+    }
+  }
+  
+  @keyframes pathAnimation {
+    0% {
+      background-color: #20c997;
+    }
+    100% {
+      background-color: #6f42c1;
+    }
+  }
+  
+  /* Responsive design for smaller screens */
+  @media (max-width: 600px) {
+    .navbar {
+      align-items: center;
+      padding: 10px 10px;
+    }
+  
+    .controls {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .controls select, 
+    .controls button, 
+    .controls input[type="range"], 
+    .controls div {
+      margin: 5px 0;
+    }
+  
+    /* .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 1fr);
+      justify-content: center;
+      align-items:center;
+      margin-top: 20px;
+    } */
+  }
+  

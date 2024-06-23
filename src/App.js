@@ -168,24 +168,30 @@ function App() {
   }
   return (
     <div className='App'>
-          <h1>Path Visualiser</h1>
-          <div className='controls'>
-            <select value={algorithm} onChange={(e)=>setAlgorithm(e.target.value)}>
-              <option value="dijkstra">Dijkstra</option>
-              <option value="astar">A*</option>
-              <option value="bfs">BFS</option>
-              <option value="dfs">DFS</option>
-            </select>
-            <button onClick={visualizeAlgorithm}>Visulalize {algorithm}</button>
-            <button onClick={handleResetGrid}>Reset Grid</button>
-            <label>
-              delay:
-              <input type="range" min="1" max="100" value={delay} onChange={(e)=>{setDelay(Number(e.target.value))}}></input>
-            </label>
-            <div>Nodes visited: {nodesVisited}</div>
-            <div>shortest Path Length:{shortestPathLength}</div>
+      <div className="navbar">
+        <h1>Path Visualizer</h1>
+        <div className='controls'>
+          <select value={algorithm} onChange={(e) => setAlgorithm(e.target.value)}>
+            <option value="dijkstra">Dijkstra</option>
+            <option value="astar">A*</option>
+            <option value="bfs">BFS</option>
+            <option value="dfs">DFS</option>
+          </select>
+          <button onClick={visualizeAlgorithm}>Visualize {algorithm}</button>
+          <button onClick={handleResetGrid}>Reset Grid</button>
+         <div className='slider'>
+         <label>
+           <span className='delay'>delay:</span>
+            <input type="range" min="1" max="100" value={delay} onChange={(e) => setDelay(Number(e.target.value))} />
+          </label>
+         </div>
+          <div className="answer">
+            <div className='child'> Nodes visited: {nodesVisited}</div>
+            <div className='child'>Shortest Path Length: {shortestPathLength}</div>
           </div>
-          <Grid grid={grid} onNodeClick={handleNodeClick}></Grid>
+        </div>
+      </div>
+      <Grid grid={grid} onNodeClick={handleNodeClick} />
     </div>
   );
 }
