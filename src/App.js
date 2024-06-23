@@ -55,7 +55,7 @@ function App() {
     return newGrid;
   };
   const handleResetGrid = () => {
-    const newGrid = createGrid(20, 50); // Create a fresh grid
+    const newGrid = createGrid(20, 45); // Create a fresh grid
     setGrid(newGrid);
     setIsStartSelected(false);
     setIsEndSelected(false);
