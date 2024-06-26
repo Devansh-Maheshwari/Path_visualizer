@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState ,useEffect, useRef} from 'react';
 import { dijkstra, bfs, dfs, astar } from './Algorithm';
 
 import  Grid  from './Grid';
@@ -38,7 +38,11 @@ function App() {
   const [delay,setDelay]=useState(10);
   const [shortestPathLength,setShortestPathLength]=useState(0);
   const[nodesVisited,setNodesVisited]=useState(0);
-  
+  const timeouts = useRef([]); 
+  const clearAllTimeouts = () => {
+    timeouts.current.forEach(timeout => clearTimeout(timeout));
+    timeouts.current = [];
+  };
   const resetGrid = (preserveStartEnd = false) => {
     const newGrid = grid.map(row =>
       row.map(node => ({
@@ -55,6 +59,7 @@ function App() {
     return newGrid;
   };
   const handleResetGrid = () => {
+  clearAllTimeouts();
     const newGrid = createGrid(20, 45); // Create a fresh grid
     setGrid(newGrid);
     setIsStartSelected(false);
@@ -137,24 +142,28 @@ function App() {
     animateAlgorithm(visitedNodesInOrder, startNode, endNode);
   }
   const animateAlgorithm=(nodeInOrder,startNode,endNode)=>{
+    clearAllTimeouts();
     for(let i=0;i<nodeInOrder.length;i++){
-      setTimeout(()=>{
+      const timeout=setTimeout(()=>{
         const node=nodeInOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).classList.add('node-visited');
       },delay*i);
+      timeouts.current.push(timeout);
     }
-    setTimeout(() => {
+    const timeout=setTimeout(() => {
       const shortestPathNodes=getNodesInShortestPathOrder(endNode);
       setShortestPathLength(shortestPathNodes.length);
       animateShortestPath(shortestPathNodes);
     }, delay*nodeInOrder.length);
+    timeouts.current.push(timeout);
   }
   const animateShortestPath=(nodesInShortestPathOrder)=>{
     for(let i=0;i<nodesInShortestPathOrder.length;i++){
-      setTimeout(()=>{
+      const timeout=setTimeout(()=>{
         const node=nodesInShortestPathOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).classList.add('node-shortest-path')
       },50*i);
+      timeouts.current.push(timeout);
     }
   };
   const getNodesInShortestPathOrder=(endNode)=>{
@@ -171,7 +180,7 @@ function App() {
       <div className="navbar">
         <h1>Path Visualizer</h1>
         <div className='controls'>
-          <select value={algorithm} onChange={(e) => setAlgorithm(e.target.value)}>
+          <select value={algorithm} onChange={(e) => {setAlgorithm(e.target.value); clearAllTimeouts();}}>
             <option value="dijkstra">Dijkstra</option>
             <option value="astar">A*</option>
             <option value="bfs">BFS</option>
