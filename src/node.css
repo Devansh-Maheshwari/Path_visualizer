@@ -80,6 +80,7 @@ body, html {
   .delay {
     margin-right: 5px;
     color: #fff;
+    transform:translateY(-0.5rem);
   }
   
   .answer {
@@ -91,8 +92,14 @@ body, html {
   
   .answer .child {
     margin: 5px;
+    color:#f4efc3;
   }
-  
+.label{
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+}  
   /* Styling the grid */
   grid {
     height:100%;
@@ -167,6 +174,9 @@ body, html {
       align-items: center;
     }
   
+    .delay {
+      transform:translateY(-0.65rem);
+    }
     .controls select, 
     .controls button, 
     .controls input[type="range"], 

@@ -31,7 +31,7 @@ const createGrid=(rows,cols)=>{
   return grid;
 }
 function App() {
-  const [grid,setGrid]=useState(createGrid(20,50));
+  const [grid,setGrid]=useState(createGrid(18,50));
   const [isStartSelected,setIsStartSelected]=useState(false);
   const [isEndSelected,setIsEndSelected]=useState(false);
   const [algorithm,setAlgorithm]=useState("dijkstra");
@@ -180,8 +180,8 @@ function App() {
           <button onClick={visualizeAlgorithm}>Visualize {algorithm}</button>
           <button onClick={handleResetGrid}>Reset Grid</button>
          <div className='slider'>
-         <label>
-           <span className='delay'>delay:</span>
+         <label className='label'>
+           <span className='delay'>delay:{delay} ms</span>
             <input type="range" min="1" max="100" value={delay} onChange={(e) => setDelay(Number(e.target.value))} />
           </label>
          </div>
